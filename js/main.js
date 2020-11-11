@@ -118,11 +118,11 @@ function doAnswer(command_id){
 					},2500);
 					setTimeout(()=>{
 						document.querySelector('.question-mode').classList.add('none');
-						history.pushState(null, null, "https://orangedays00.github.io/gs_dev18_02/battle.html");
+						history.pushState(null, null, "/battle.html");
 					},4000);
 					setTimeout(()=>{
-						document.location.reload();
-					},4050);
+						window.location.reload();
+					},4100);
 				}else{
 					break;
 				}
@@ -140,11 +140,11 @@ function doAnswer(command_id){
 					},2500);
 					setTimeout(()=>{
 						document.querySelector('.question-mode').classList.add('none');
-							history.pushState(null, null, "https://orangedays00.github.io/gs_dev18_02/battle.html");
+						history.pushState(null, null, "/battle.html");
 					},4000);
 					setTimeout(()=>{
-						document.location.reload();
-					},4050);
+						window.location.reload();
+					},4100);
 				}else{
 					break;
 				}
