@@ -107,11 +107,6 @@ body {
     -ms-transform: translate(-50%, -50%);
 }
 
-@-webkit-keyframes typing {
-	from { width: 0 }
-	to { width:100% }
-}
-
 span.message-text {
 	display:inline-block;
     width:100%;
@@ -132,6 +127,16 @@ span.message-text.slowly {
     overflow-wrap: break-word;
 }
 
+input#game-control {
+    display: block;
+    margin-left: 30px;
+    width: 350px;
+}
+
+@keyframes typing {
+	from { width: 0 }
+	to { width:100% }
+}
 
 @keyframes gameover {
     0% { opacity: 1;}

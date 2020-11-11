@@ -10,13 +10,18 @@ body {
     display: none;
 }
 
-.game-window {
+.game-window, .ending {
     width:70%;
     border: 1px solid #fff;
     margin: 30px;
 	height:auto;
 	background-color:black;
 	color:white;
+}
+
+.ending {
+    height: 500px;
+    position: relative;
 }
 
 /* 勇者 */
@@ -85,6 +90,8 @@ body {
     -ms-transform: translate(-50%, -50%);
 }
 
+
+/* 各アニメーション設定 */
 .game-enemy #ryuou.damage {
     animation: flash 0.3s linear infinite;
 }
@@ -141,6 +148,7 @@ body {
     animation: blink 1.4s infinite;
 }
 
+/* メッセージエリア */
 #message {
     width:600px;
     height: 100px;
@@ -150,18 +158,25 @@ body {
 	padding:1rem;
 }
 
-/* メッセージのアニメーション */
-@-webkit-keyframes typing {
-	from { width: 0 }
-	to { width:100% }
-}
+/* 各メッセージテキスト */
 span.message-text {
 	display:inline-block;
     width:100%;
     margin-bottom: 0.5rem;
 	white-space:nowrap;
 	overflow:hidden;
-    -webkit-animation: typing 3s;
+    animation: typing 3s;
+    overflow-wrap: break-word;
+}
+
+span.ending-text {
+	display:inline-block;
+    width:100%;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+	white-space:nowrap;
+	overflow:hidden;
+    animation: typing 5s;
     overflow-wrap: break-word;
 }
 
@@ -170,8 +185,45 @@ span.dead-text {
 	width:100%;
 	white-space:nowrap;
 	overflow:hidden;
-    -webkit-animation: typing 5s;
+    animation: typing 5s;
     overflow-wrap: break-word;
+}
+
+/* エンディング */
+.ending-texts {
+    margin: 20% auto;
+    padding: 10px;
+    width: 600px;
+}
+
+.restart {
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.restart a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #fff;
+    border-radius: 5px;
+}
+
+input#game-control {
+    display: block;
+    margin-left: 30px;
+    width: 350px;
+}
+
+/* メッセージのアニメーション */
+@keyframes typing {
+	from { width: 0 }
+	to { width:100% }
 }
 
 /* りゅうおう、ジーズへのダメージアニメーション */

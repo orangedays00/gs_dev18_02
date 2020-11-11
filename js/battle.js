@@ -129,7 +129,7 @@ const gogogo = ()=>{
 const changeTrue = ()=>{
     document.getElementById('gogogo').classList.add('none');
     document.getElementById('ryuouTrue').classList.remove('none');
-    document.querySelector('.message1').innerHTML = `<span class="dead-text">りゅうおうが しんのすがたをあらわした!</span>`;
+    document.querySelector('.message1').innerHTML = `<span class="dead-text">りゅうおうは しんのすがたをあらわした!</span>`;
     document.querySelector('.message2').innerHTML = "";
     enemyHp = 100;
 }
@@ -457,13 +457,19 @@ function ryuouTrueBattle(command_id){
                                 document.querySelector('.message2').innerHTML = `<span class="dead-text">りゅうおうをたおした!</span>`;
                                 document.querySelector('.message3').innerHTML = "";
                             },3000);
-                            // setTimeout(()=>{
-                            //     gogogo();
-                            // },5000);
-                            // setTimeout(()=>{
-                            //     changeTrue();
-                            //     enterKey = 0;
-                            // },8000);
+                            setTimeout(()=>{
+                                document.querySelector('.ending').classList.remove('none');
+                                document.querySelector('.game-window').classList.add('none');
+                            },6000);
+                            setTimeout(()=>{
+                                document.querySelector('.ending-text1').innerHTML = `<span class="ending-text">まばゆい　ひかりが　あふれだす……</span>`;
+                            },7000);
+                            setTimeout(()=>{
+                                document.querySelector('.ending-text2').innerHTML = `<span class="ending-text">せかいに　へいわが　もどったのだ！</span>`;
+                            },12000);
+                            setTimeout(()=>{
+                                document.querySelector('.restart').classList.remove('none');
+                            },15000);
                         }else{
                             setTimeout(()=>{
                                 messageClear123();
@@ -510,6 +516,19 @@ function ryuouTrueBattle(command_id){
                                 document.querySelector('.message2').innerHTML = `<span class="dead-text">りゅうおうをたおした</span>`;
                                 document.querySelector('.message3').innerHTML = "";
                             },3000);
+                            setTimeout(()=>{
+                                document.querySelector('.ending').classList.remove('none');
+                                document.querySelector('.game-window').classList.add('none');
+                            },6000);
+                            setTimeout(()=>{
+                                document.querySelector('.ending-text1').innerHTML = `<span class="ending-text">まばゆい　ひかりが　あふれだす……</span>`;
+                            },7000);
+                            setTimeout(()=>{
+                                document.querySelector('.ending-text2').innerHTML = `<span class="ending-text">せかいに　へいわが　もどったのだ！</span>`;
+                            },12000);
+                            setTimeout(()=>{
+                                document.querySelector('.restart').classList.remove('none');
+                            },15500);
                         }else{
                             setTimeout(()=>{
                                 messageClear123();

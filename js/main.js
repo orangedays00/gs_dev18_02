@@ -5,7 +5,7 @@ let enterKey = 0;
 
 function startMessage(){
 	setTimeout(()=>{
-		document.querySelector('.message2').innerHTML = `<span class="message-text">どうじゃ？　わしのみかたになるか？</span>`;
+		document.querySelector('.message2').innerHTML = `<span class="message-text">どうじゃ？　わしの　みかたになるか？</span>`;
 	}, 2000);
 	setTimeout(()=>{
 		document.querySelector('.game-enemy').classList.add('choices');
@@ -122,7 +122,7 @@ function doAnswer(command_id){
 					},4000);
 					setTimeout(()=>{
 						window.location.reload();
-					},4100);
+					},4200);
 				}else{
 					break;
 				}
@@ -144,7 +144,7 @@ function doAnswer(command_id){
 					},4000);
 					setTimeout(()=>{
 						window.location.reload();
-					},4100);
+					},4200);
 				}else{
 					break;
 				}
