@@ -119,8 +119,10 @@ function doAnswer(command_id){
 					setTimeout(()=>{
 						document.querySelector('.question-mode').classList.add('none');
 						history.pushState(null, null, "https://orangedays00.github.io/gs_dev18_02/battle.html");
-						document.location.reload();
 					},4000);
+					setTimeout(()=>{
+						document.location.reload();
+					},4050);
 				}else{
 					break;
 				}
@@ -139,8 +141,10 @@ function doAnswer(command_id){
 					setTimeout(()=>{
 						document.querySelector('.question-mode').classList.add('none');
 							history.pushState(null, null, "https://orangedays00.github.io/gs_dev18_02/battle.html");
-						document.location.reload();
 					},4000);
+					setTimeout(()=>{
+						document.location.reload();
+					},4050);
 				}else{
 					break;
 				}
