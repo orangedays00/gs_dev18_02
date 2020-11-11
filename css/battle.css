@@ -1,0 +1,204 @@
+/* ゲーム画面全体のデザイン */
+body {
+	width:1200px;
+	height:auto;
+	background-color:black;
+	color:white;
+}
+
+.none {
+    display: none;
+}
+
+.game-window {
+    width:70%;
+    border: 1px solid #fff;
+    margin: 30px;
+	height:auto;
+	background-color:black;
+	color:white;
+}
+
+/* 勇者 */
+.brave-profile {
+	width:80px;
+	border:3px solid white;
+	border-radius:6px;
+	margin:2rem;
+	padding:1rem 1rem 1rem 1.5rem;
+}
+
+.brave-name, .hit-point, .brave-level {
+    margin-bottom: 0.5rem;
+}
+
+.brave-profile.pinch, .game-menu.pinch, #message.pinch{
+    color: orange;
+    border:3px solid orange;
+}
+
+.brave-profile.dead, .game-menu.dead, #message.dead{
+    color: red;
+    border:3px solid red;
+}
+
+
+
+.game-enemy {
+	text-align:center;
+	margin:1rem;
+	padding:1rem;
+    position: relative;
+    height: 200px;
+    width: auto;
+}
+
+.game-enemy img#ryuou {
+    width: 200px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.game-enemy img#gogogo {
+    width: 500px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+.game-enemy img#ryuouTrue {
+    width: 350px;
+    height: auto;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.game-enemy #ryuou.damage {
+    animation: flash 0.3s linear infinite;
+}
+
+.game-enemy #ryuou.death {
+    animation: dead 1s ease forwards;
+}
+
+.game-enemy #gogogo.gogogo {
+    animation: go 3s ease-out forwards;
+}
+
+.game-enemy #ryuouTrue:not(.none) {
+    animation: true 0.3s ease forwards;
+}
+
+.game-enemy #ryuouTrue.damage, .game-window.damage{
+    animation: flash 0.3s linear infinite;
+}
+
+.game-enemy #ryuouTrue.death{
+    animation: dead 1s ease forwards;
+}
+
+/* 下のメニュー */
+.under-menu {
+    display: flex;
+}
+
+/* メニュー */
+.game-menu {
+	width:90px;
+	border:3px solid white;
+	border-radius:6px;
+	margin:1rem 0 1rem 2rem;
+	padding:1rem 1rem 1rem 2rem;
+}
+
+/* メニュー用 */
+.menu {
+    cursor:pointer;
+    margin-bottom: 0.5rem;
+}
+.menu:before {
+    cursor:pointer;
+    white-space: pre-wrap;
+	content: " ";
+}
+/* メニュー選択状態 */
+.menu-active:before {
+	content: '▶';
+    position: absolute;
+    left: 5rem;
+    animation: blink 1.4s infinite;
+}
+
+#message {
+    width:600px;
+    height: 100px;
+	border:3px solid white;
+	border-radius:6px;
+	margin:1rem 2rem 1rem 1rem;
+	padding:1rem;
+}
+
+/* メッセージのアニメーション */
+@-webkit-keyframes typing {
+	from { width: 0 }
+	to { width:100% }
+}
+span.message-text {
+	display:inline-block;
+    width:100%;
+    margin-bottom: 0.5rem;
+	white-space:nowrap;
+	overflow:hidden;
+    -webkit-animation: typing 3s;
+    overflow-wrap: break-word;
+}
+
+span.dead-text {
+	display:inline-block;
+	width:100%;
+	white-space:nowrap;
+	overflow:hidden;
+    -webkit-animation: typing 5s;
+    overflow-wrap: break-word;
+}
+
+/* りゅうおう、ジーズへのダメージアニメーション */
+@keyframes flash {
+    0%,100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* りゅうおうを倒した */
+@keyframes dead {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+/* りゅうおう登場 */
+@keyframes go {
+    0% {opacity: 0;}
+    70% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+@keyframes true {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}

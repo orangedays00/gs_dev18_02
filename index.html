@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<!-- 最初の設定は終わっています　必要な方は触ってください -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>javascript/jQuery1回目</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<!-- 最初の設定は終わっています　必要な方は触ってください -->
+
+<body>
+  <!-- この中に記述していく -->
+  <!-- ここから下にコードを書く -->
+  <div class="question-mode">
+    <div class="game-window">
+      <div class="blackboard-question">
+        <div class="message1"><span class="message-text">もし　わしのみかたになれば　せかいのはんぶんをおまえにやろう</span></div>
+        <div class="message2"></div>
+        <div class="message3"></div>
+      </div>
+      <div class="game-enemy">
+        <img src="img/39_ryuuou.gif" alt="竜王" id="ryuou">
+      </div>
+      <div class="blackboard-answer none">
+        <div id="blackboardAnswer1" onclick="questionSelect(1);" class="menu">はい</div>
+        <div id="blackboardAnswer2" onclick="questionSelect(2);" class="menu">いいえ</div>
+      </div>
+    </div>
+    <input type="text" id="game-control" onkeydown="questionAnswer();">
+  </div>
+
+  <div class="retry none">
+    <div class="retry-window">
+      <div class="retry-question">
+        <div class="message1"></div>
+        <div class="message2"></div>
+        <div class="message3"></div>
+      </div>
+      <div class="game-king">
+        <img src="img/king.png" alt="王様" id="king">
+      </div>
+      <div class="retry-answer">
+        <div id="retryAnswer1" onclick="retrySelect(1);" class="menu">はい</div>
+        <div id="retryAnswer2" onclick="retrySelect(2);" class="menu">いいえ</div>
+      </div>
+    </div>
+    <input type="text" id="game-control" onkeydown="retryAnswer();">
+  </div>
+  <div class="game-over-end none">
+    <p>GAME OVER</p>
+  </div>
+
+
+  <!-- ここから上にコードを書く -->
+  <!-- この中に記述していく -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/retry.js"></script>
+  <script>
+    startMessage()
+    questionSelect(1);
+    retrySelect(1);
+  </script>
+</body>
+
+</html>

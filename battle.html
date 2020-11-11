@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>りゅうおう戦</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/battle.css">
+</head>
+<body>
+
+
+<div class="game-window">
+
+    <div class="brave-profile">
+        <div class="brave-name">ジーズ</div>
+        <div class="hit-point">HP：<span id="hitPoint">100</span></div>
+        <div class="brave-level">LV：<span>18</span></div>
+    </div>
+
+    <div class="game-enemy">
+        <img src="img/39_ryuuou.gif" alt="竜王" id="ryuou">
+        <img src="img/gogogo.png" alt="ゴゴゴゴゴゴ" id="gogogo" class="none">
+        <img src="img/40_ryuuou2.gif" alt="竜王" id="ryuouTrue" class="none">
+    </div>
+
+    <div class="under-menu">
+        <div class="game-menu">
+            <div id="menu1" onclick="activeMenu(1);" class="menu">たたかう</div>
+            <div id="menu2" onclick="activeMenu(2);" class="menu">ぼうぎょ</div>
+            <div id="menu3" onclick="activeMenu(3);" class="menu">どうぐ</div>
+            <div id="menu4" onclick="activeMenu(4);" class="menu">にげる</div>
+        </div>
+
+
+
+        <div id="message" style="">
+            <div class="message1"><span class="message-text">りゅうおう が あらわれた</span></div>
+            <div class="message2"></div>
+            <div class="message3"></div>
+        </div>
+    </div>
+
+</div>
+
+<input type="text" id="game-control" onkeydown="game_keydown();"></div>
+<script src="js/battle.js"></script>
+<script>activeMenu(1);</script>
+
+</body>
+</html>
