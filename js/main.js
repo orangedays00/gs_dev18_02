@@ -118,7 +118,7 @@ function doAnswer(command_id){
 					},2500);
 					setTimeout(()=>{
 						document.querySelector('.question-mode').classList.add('none');
-						history.pushState(null, null, "/battle.html");
+						history.pushState(null, null, "/gs_dev18_02/battle.html");
 					},4000);
 					setTimeout(()=>{
 						window.location.reload();
@@ -140,7 +140,7 @@ function doAnswer(command_id){
 					},2500);
 					setTimeout(()=>{
 						document.querySelector('.question-mode').classList.add('none');
-						history.pushState(null, null, "/battle.html");
+						history.pushState(null, null, "/gs_dev18_02/battle.html");
 					},4000);
 					setTimeout(()=>{
 						window.location.reload();
