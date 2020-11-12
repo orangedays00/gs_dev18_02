@@ -492,7 +492,7 @@ function ryuouTrueBattle(command_id){
                                 messageClear123();
                             },0);
                             setTimeout(()=>{
-                                document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうに${attack}のダメージ</span>`;
+                                document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうに${attack2}のダメージ</span>`;
                                 messageClear23();
                                 console.log(enemyHp);
                             },300);
