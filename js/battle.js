@@ -128,9 +128,9 @@ const changeTrue = ()=>{
 // りゅうおう戦の戦闘関数
 function ryuouBattle(command_id){
     let audioElem1;
-    const aBgm = "https://orangedays00.github.io/gs_dev18_02/mp3/katana-slash5.mp3";
-    const caBgm = "https://orangedays00.github.io/gs_dev18_02/mp3/katana-slash2.mp3";
-    const eaBgm = "https://orangedays00.github.io/gs_dev18_02/mp3/punch-heavy2.mp3";
+    const aBgm = "https://orangedays00.github.io/gs_dev18_02/music/katana-slash5.mp3";
+    const caBgm = "https://orangedays00.github.io/gs_dev18_02/music/katana-slash2.mp3";
+    const eaBgm = "https://orangedays00.github.io/gs_dev18_02/music/punch-heavy2.mp3";
     const playAttackBgm = (filename) => {
         audioElem1 = new Audio();
         audioElem1.src = filename;
@@ -400,9 +400,9 @@ function ryuouBattle(command_id){
 // りゅうおう（真）戦の戦闘関数
 function ryuouTrueBattle(command_id){
     let audioElem2;
-    const aBgm = "https://orangedays00.github.io/gs_dev18_02/mp3/katana-slash5.mp3";
-    const caBgm = "https://orangedays00.github.io/gs_dev18_02/mp3/katana-slash2.mp3";
-    const eaBgm = "https://orangedays00.github.io/gs_dev18_02/mp3/punch-heavy1.mp3";
+    const aBgm = "https://orangedays00.github.io/gs_dev18_02/music/katana-slash5.mp3";
+    const caBgm = "https://orangedays00.github.io/gs_dev18_02/music/katana-slash2.mp3";
+    const eaBgm = "https://orangedays00.github.io/gs_dev18_02/music/punch-heavy1.mp3";
 
     const playAttackBgm = (filename) => {
         audioElem2 = new Audio();
