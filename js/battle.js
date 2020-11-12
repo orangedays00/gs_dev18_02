@@ -312,6 +312,9 @@ function ryuouBattle(command_id){
                         setTimeout(()=>{
                             document.querySelector('.message3').innerHTML = `<span class="dead-text">ジーズはしんでしまった...</span>`;
                         },5000);
+                        setTimeout(()=>{
+                            document.querySelector('.restart-go').classList.remove('none');
+                        },6500);
                     }else if(braveHp >= 1 && braveHp <= 30){
                         setTimeout(()=>{
                             messageClear123();
@@ -594,6 +597,9 @@ function ryuouTrueBattle(command_id){
                         setTimeout(()=>{
                             document.querySelector('.message3').innerHTML = `<span class="dead-text">ジーズはしんでしまった...</span>`;
                         },5000);
+                        setTimeout(()=>{
+                            document.querySelector('.restart-go').classList.remove('none');
+                        },6500);
                     }else if(braveHp >= 1 && braveHp <= 30){
                         setTimeout(()=>{
                             messageClear123();
