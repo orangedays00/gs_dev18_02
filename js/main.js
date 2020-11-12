@@ -41,7 +41,7 @@ function questionAnswer(){
 			document.querySelector('.blackboard-answer').classList.add('none');
 			doAnswer(menuId);
 			break;
-		default: //その他の場合はキーコードを表示
+		default: //その他の場合
 			break;
 	}
 }
@@ -154,37 +154,3 @@ function doAnswer(command_id){
 			break;
 	}
 }
-
-
-
-// var msg_buff = '';
-// function message(msg)
-// {
-// 	if (msg_buff == '') {
-// 		msg_buff += msg + "\n";
-// 		message_char();
-// 	} else {
-// 		msg_buff += msg + "\n";
-// 	}
-
-// }
-// function message_char()
-// {
-// 	if (msg_buff == '') {
-// 		//メッセージバッファに文字がなければ何もしない
-// 		return;
-// 	}
-// 	//メッセージバッファの先頭1文字を取得
-// 	var c = msg_buff.slice(0, 1)
-// 	if (c == "\n") {
-// 		c = '<br>';//改行の場合はタグへ変換
-// 		var obj = document.getElementById('message_window');
-// 		obj.scrollTop = obj.scrollHeight;
-// 	}
-// 	document.getElementById('message_window').innerHTML += c;
-// 	//メッセージバッファから先頭1文字を削除
-// 	msg_buff = msg_buff.slice(1);
-// 	//
-// 	setTimeout('message_char()', 30);
-// }
-

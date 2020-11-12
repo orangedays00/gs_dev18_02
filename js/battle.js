@@ -1,15 +1,14 @@
 let menu_id = 0;
 let enterKey = 0;
 let enemyHp = 30;
+
 //キー入力による分岐処理
 function game_keydown(){
     if(document.getElementById('ryuouTrue').className == "none"){
         switch (event.key) {
             case "ArrowLeft": //カーソルキーの左
-                document.getElementById("game-control").value = "ArrowLeft";
                 break;
             case "ArrowUp": //カーソルキーの上
-                document.getElementById("game-control").value = "ArrowUp";
                 if (menu_id <= 1) {
                     activeMenu(4);
                 } else {
@@ -17,10 +16,8 @@ function game_keydown(){
                 }
                 break;
             case "ArrowRight": //カーソルキーの右
-                document.getElementById("game-control").value = "ArrowRight";
                 break;
             case "ArrowDown": //カーソルキーの下
-                document.getElementById("game-control").value = "ArrowDown";
                 if (menu_id >= 4) {
                     activeMenu(1);
                 } else {
@@ -32,18 +29,15 @@ function game_keydown(){
                 ryuouBattle(menu_id);
                 // console.log(enterKey);
                 break;
-            default: //その他の場合はキーコードを表示
-                document.getElementById("game-control").value = "キーコード:" + event.key;
+            default: //その他の場合
                 break;
         }
     }
     if(document.getElementById('ryuou').classList.contains('none') == true){
         switch (event.key) {
             case "ArrowLeft": //カーソルキーの左
-                document.getElementById("game-control").value = "ArrowLeft";
                 break;
             case "ArrowUp": //カーソルキーの上
-                document.getElementById("game-control").value = "ArrowUp";
                 if (menu_id <= 1) {
                     activeMenu(4);
                 } else {
@@ -51,10 +45,8 @@ function game_keydown(){
                 }
                 break;
             case "ArrowRight": //カーソルキーの右
-                document.getElementById("game-control").value = "ArrowRight";
                 break;
             case "ArrowDown": //カーソルキーの下
-                document.getElementById("game-control").value = "ArrowDown";
                 if (menu_id >= 4) {
                     activeMenu(1);
                 } else {
@@ -66,8 +58,7 @@ function game_keydown(){
                 ryuouTrueBattle(menu_id);
                 // console.log(enterKey);
                 break;
-            default: //その他の場合はキーコードを表示
-                document.getElementById("game-control").value = "キーコード:" + event.key;
+            default: //その他の場合
                 break;
         }
     }
