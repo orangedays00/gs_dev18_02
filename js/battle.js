@@ -2,6 +2,16 @@ let menu_id = 0;
 let enterKey = 0;
 let enemyHp = 30;
 
+let audioElem;
+const aBgm = "https://orangedays00.github.io/gs_dev18_02/music/katana-slash5.mp3";
+const caBgm = "https://orangedays00.github.io/gs_dev18_02/music/katana-slash2.mp3";
+const eaBgm = "https://orangedays00.github.io/gs_dev18_02/music/punch-heavy2.mp3";
+const playAttackBgm = (filename) => {
+    audioElem = new Audio();
+    audioElem.src = filename;
+    audioElem.play();
+}
+
 //キー入力による分岐処理
 function game_keydown(){
     if(document.getElementById('ryuouTrue').className == "none"){
@@ -125,17 +135,80 @@ const changeTrue = ()=>{
     enemyHp = 100;
 }
 
+function message1(qs,inhtml,time){
+	setTimeout(()=>{
+		document.querySelector(qs).innerHTML = inhtml;
+	},time);
+}
+
+function message12(qs1,inhtml1,qs2,inhtml2,time){
+	setTimeout(()=>{
+		document.querySelector(qs1).innerHTML = inhtml1;
+		document.querySelector(qs2).innerHTML = inhtml2;
+	},time);
+}
+
+function classListAdd1(qs,cla,time){
+	setTimeout(()=>{
+		document.querySelector(qs).classList.add(cla);
+	},time);
+}
+
+function classListRemove1(qs,clr,time){
+    setTimeout(()=>{
+		document.querySelector(qs).classList.remove(clr);
+	},time);
+}
+
+function classListAddRemove(qsa,cla,qsr,clr,time){
+	setTimeout(()=>{
+		document.querySelector(qsa).classList.add(cla);
+		document.querySelector(qsr).classList.remove(clr);
+	},time);
+}
+
+function damageBgm(qs,cla,pab,time){
+    setTimeout(()=>{
+        document.querySelector(qs).classList.add(cla);
+        playAttackBgm(pab);
+    },time);
+}
+
+function callbackMessage(qs,inhtml,call,time){
+    setTimeout(()=>{
+        document.querySelector(qs).innerHTML = inhtml;
+        call();
+    },time);
+}
+
+function callback(call,time){
+    setTimeout(()=>{
+        call();
+    },time);
+}
+
+function pinch(cla,qs1,qs2,qs3,qs4,qs5,inhtml4,inhtml5,time){
+    setTimeout(()=>{
+        document.querySelector(qs1).classList.add(cla);
+        document.querySelector(qs2).classList.add(cla);
+        document.querySelector(qs3).classList.add(cla);
+        document.querySelector(qs4).innerHTML = inhtml4;
+        document.querySelector(qs5).innerHTML = inhtml5;
+    },time);
+}
+
+function death(cla,qs1,qs2,qs3,qs4,inhtml4,time){
+    setTimeout(()=>{
+        document.querySelector(qs1).classList.add(cla);
+        document.querySelector(qs2).classList.add(cla);
+        document.querySelector(qs3).classList.add(cla);
+        document.querySelector(qs4).innerHTML = inhtml4;
+    },time);
+}
+
+
 // りゅうおう戦の戦闘関数
 function ryuouBattle(command_id){
-    let audioElem1;
-    const aBgm = "https://orangedays00.github.io/gs_dev18_02/music/katana-slash5.mp3";
-    const caBgm = "https://orangedays00.github.io/gs_dev18_02/music/katana-slash2.mp3";
-    const eaBgm = "https://orangedays00.github.io/gs_dev18_02/music/punch-heavy2.mp3";
-    const playAttackBgm = (filename) => {
-        audioElem1 = new Audio();
-        audioElem1.src = filename;
-        audioElem1.play();
-    }
     if(enterKey == 1){
         // document.getElementById("game-control").value = "コマンド番号:" + command_id;
         switch (command_id) {
@@ -148,59 +221,28 @@ function ryuouBattle(command_id){
                 ];
                 const enemyId1 = Math.floor(Math.random() * janken.length);
                 const braveId1 = Math.floor(Math.random() * janken.length);
-                console.log(`りゅうおう：${enemyId1}`);
-                console.log(`ジーズ：${braveId1}`);
                 if(braveId1 == 0 && enemyId1 == 1 || braveId1 == 1 && enemyId1 == 2 || braveId1 == 2 && enemyId1 == 0){
                     if(braveId1 == 0){
 
                         const criticalAttack1 = Math.floor((Math.random() + 2) * 30);
                         enemyHp = enemyHp - criticalAttack1;
                         if(enemyHp < 0){
-                            setTimeout(()=>{
-                                messageClear123();
-                            },0);
-                            setTimeout(()=>{
-                                document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ かいしんのいちげき！りゅうおうに${criticalAttack1}のダメージ</span>`;
-                                messageClear23();
-                                console.log(enemyHp);
-                            },300);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuou').classList.add('damage');
-                                playAttackBgm(caBgm);
-                            },400);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuou').classList.remove('damage');
-                            },600);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuou').classList.add('death');
-                            },700);
-                            setTimeout(()=>{
-                                document.querySelector('.message2').innerHTML = `<span class="dead-text">りゅうおうをたおした!</span>`;
-                                document.querySelector('.message3').innerHTML = "";
-                            },3000);
-                            setTimeout(()=>{
-                                gogogo();
-                            },5000);
+                            callback(messageClear123,0);
+                            callbackMessage('.message1',`<span class="message-text">ジーズの こうげき！ かいしんのいちげき！りゅうおうに${criticalAttack1}のダメージ</span>`,messageClear23,300);
+                            damageBgm('.game-enemy img#ryuou','damage',caBgm,400);
+                            classListRemove1('.game-enemy img#ryuou','damage',600);
+                            classListAdd1('.game-enemy img#ryuou','death',700);
+                            message12('.message2',`<span class="dead-text">りゅうおうをたおした!</span>`,'.message3',"",3000);
+                            callback(gogogo,5000);
                             setTimeout(()=>{
                                 changeTrue();
                                 enterKey = 0;
                             },8000);
                         }else{
-                            setTimeout(()=>{
-                                messageClear123();
-                            },0);
-                            setTimeout(()=>{
-                                document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ かいしんのいちげき！りゅうおうに${criticalAttack1}のダメージ</span>`;
-                                messageClear23();
-                                console.log(enemyHp);
-                            },300);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuou').classList.add('damage');
-                                playAttackBgm(caBgm);
-                            },400);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuou').classList.remove('damage');
-                            },600);
+                            callback(messageClear123,0);
+                            callbackMessage('.message1',`<span class="message-text">ジーズの こうげき！ かいしんのいちげき！りゅうおうに${criticalAttack1}のダメージ</span>`,messageClear23,300);
+                            damageBgm('.game-enemy img#ryuou','damage',caBgm,400);
+                            classListRemove1('.game-enemy img#ryuou','damage',600);
                             setTimeout(()=>{
                                 enterKey = 0;
                             },2000);
@@ -209,77 +251,37 @@ function ryuouBattle(command_id){
                         const attack1 = Math.floor((Math.random() + 1) * 15);
                         enemyHp = enemyHp - attack1;
                         if(enemyHp < 0){
-                            setTimeout(()=>{
-                                messageClear123();
-                            },0);
-                            setTimeout(()=>{
-                                document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうに${attack1}のダメージ</span>`;
-                                messageClear23();
-                                console.log(enemyHp);
-                            },300);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuou').classList.add('damage');
-                                playAttackBgm(aBgm);
-                            },400);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuou').classList.remove('damage');
-                            },600);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuou').classList.add('death');
-                            },700);
-                            setTimeout(()=>{
-                                document.querySelector('.message2').innerHTML = `<span class="dead-text">りゅうおうをたおした</span>`;
-                                document.querySelector('.message3').innerHTML = "";
-                            },3000);
-                            setTimeout(()=>{
-                                gogogo();
-                            },5000);
+                            callback(messageClear123,0);
+                            callbackMessage('.message1',`<span class="message-text">ジーズの こうげき！ りゅうおうに${attack1}のダメージ</span>`,messageClear23,300);
+                            damageBgm('.game-enemy img#ryuou','damage',aBgm,400);
+                            classListRemove1('.game-enemy img#ryuou','damage',600);
+                            classListAdd1('.game-enemy img#ryuou','death',700);
+                            message12('.message2',`<span class="dead-text">りゅうおうをたおした!</span>`,'.message3',"",3000);
+                            callback(gogogo,5000);
                             setTimeout(()=>{
                                 changeTrue();
                                 enterKey = 0;
                             },8000);
                         }else{
-                            setTimeout(()=>{
-                                messageClear123();
-                            },0);
-                            setTimeout(()=>{
-                                document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうに${attack1}のダメージ</span>`;
-                                messageClear23();
-                                console.log(enemyHp);
-                            },300);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuou').classList.add('damage');
-                                playAttackBgm(aBgm);
-                            },400);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuou').classList.remove('damage');
-                            },600);
+                            callback(messageClear123,0);
+                            callbackMessage('.message1',`<span class="message-text">ジーズの こうげき！ りゅうおうに${attack1}のダメージ</span>`,messageClear23,300);
+                            damageBgm('.game-enemy img#ryuou','damage',aBgm,400);
+                            classListRemove1('.game-enemy img#ryuou','damage',600);
                             setTimeout(()=>{
                                 enterKey = 0;
                             },2000);
                         }
                     }
                 }else if(braveId1 == 0 && enemyId1 == 0 || braveId1 == 1 && enemyId1 == 1 || braveId1 == 2 && enemyId1 == 2){
-                    setTimeout(()=>{
-                        messageClear123();
-                        },0);
-                    setTimeout(()=>{
-                        document.querySelector('.message1').innerHTML = '<span class="message-text">ジーズの こうげき！ ミス！</span>';
-                        messageClear23();
-                        },300);
+                    callback(messageClear123,0);
+                    callbackMessage('.message1','<span class="message-text">ジーズの こうげき！ ミス！</span>',messageClear23,300);
                     setTimeout(()=>{
                             enterKey = 0;
                         },2000);
                 }else if(braveId1 == 0 && enemyId1 == 2){
-                    setTimeout(()=>{
-                        messageClear123();
-                    },0);
-                    setTimeout(()=>{
-                        document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`;
-                    },300);
-                    setTimeout(()=>{
-                        document.querySelector('.message2').innerHTML = `<span class="message-text">りゅうおうのはんげき！ ジーズはひらりとみをかわした</span>`;
-                    },2000);
+                    callback(messageClear123,0);
+                    message1('.message1',`<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`,300);
+                    message1('.message2',`<span class="message-text">りゅうおうのはんげき！ ジーズはひらりとみをかわした</span>`,2000);
                     setTimeout(()=>{
                         enterKey = 0;
                     },4000);
@@ -287,81 +289,31 @@ function ryuouBattle(command_id){
                     const enemyAttack1 = Math.floor(Math.random() * 15 + 10);
                     braveHp = braveHp - enemyAttack1;
                     if(braveHp < 0 ){
-                        setTimeout(()=>{
-                            messageClear123();
-                        },0);
-                        setTimeout(()=>{
-                            document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`;
-                        },300);
-                        setTimeout(()=>{
-                            document.querySelector('.message2').innerHTML = `<span class="message-text">りゅうおうのはんげき！ ジーズは${enemyAttack1}のダメージをうけた</span>`;
-                        },2000);
-                        setTimeout(()=>{
-                            document.querySelector('.game-window').classList.add('damage');
-                            playAttackBgm(eaBgm);
-                        },2100);
-                        setTimeout(()=>{
-                            document.querySelector('.game-window').classList.remove('damage');
-                        },2300);
-                        setTimeout(()=>{
-                            document.querySelector('.brave-profile').classList.add('dead');
-                            document.querySelector('.game-menu').classList.add('dead');
-                            document.getElementById('message').classList.add('dead');
-                            document.getElementById('hitPoint').innerHTML = "0";
-                        },3200);
-                        setTimeout(()=>{
-                            document.querySelector('.message3').innerHTML = `<span class="dead-text">ジーズはしんでしまった...</span>`;
-                        },5000);
-                        setTimeout(()=>{
-                            document.querySelector('.restart-go').classList.remove('none');
-                        },6500);
+                        callback(messageClear123,0);
+                        message1('.message1',`<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`,300);
+                        message1('.message2',`<span class="message-text">りゅうおうのはんげき！ ジーズは${enemyAttack1}のダメージをうけた</span>`,2000);
+                        damageBgm('.game-window','damage',eaBgm,2100);
+                        classListRemove1('.game-window','damage',2300);
+                        death('dead','.brave-profile','.game-menu','#message','#hitPoint',"0",3200);
+                        message1('.message3',`<span class="dead-text">ジーズはしんでしまった...</span>`,5000);
+                        classListRemove1('.restart-go','none',6500);
                     }else if(braveHp >= 1 && braveHp <= 30){
-                        setTimeout(()=>{
-                            messageClear123();
-                        },0);
-                        setTimeout(()=>{
-                            document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`;
-                        },300);
-                        setTimeout(()=>{
-                            document.querySelector('.message2').innerHTML = `<span class="message-text">りゅうおうのはんげき！ ジーズは${enemyAttack1}のダメージをうけた</span>`;
-                        },2000);
-                        setTimeout(()=>{
-                            document.querySelector('.game-window').classList.add('damage');
-                            playAttackBgm(eaBgm);
-                        },2100);
-                        setTimeout(()=>{
-                            document.querySelector('.game-window').classList.remove('damage');
-                        },2300);
-                        setTimeout(()=>{
-                            document.querySelector('.brave-profile').classList.add('pinch');
-                            document.querySelector('.game-menu').classList.add('pinch');
-                            document.getElementById('message').classList.add('pinch');
-                            document.getElementById('hitPoint').innerHTML = `${braveHp}`;
-                            document.querySelector('.message3').innerHTML = "";
-                        },3200);
+                        callback(messageClear123,0);
+                        message1('.message1',`<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`,300);
+                        message1('.message2',`<span class="message-text">りゅうおうのはんげき！ ジーズは${enemyAttack1}のダメージをうけた</span>`,2000);
+                        damageBgm('.game-window','damage',eaBgm,2100);
+                        classListRemove1('.game-window','damage',2300);
+                        pinch('pinch','.brave-profile','.game-menu','#message','#hitPoint','.message3',`${braveHp}`,"",3200);
                         setTimeout(()=>{
                             enterKey = 0;
                         },5000);
                     }else{
-                        setTimeout(()=>{
-                            messageClear123();
-                        },0);
-                        setTimeout(()=>{
-                            document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`;
-                        },300);
-                        setTimeout(()=>{
-                            document.querySelector('.message2').innerHTML = `<span class="message-text">りゅうおうのはんげき！ ジーズは${enemyAttack1}のダメージをうけた</span>`;
-                        },2000);
-                        setTimeout(()=>{
-                            document.querySelector('.game-window').classList.add('damage');
-                            playAttackBgm(eaBgm);
-                        },2100);
-                        setTimeout(()=>{
-                            document.querySelector('.game-window').classList.remove('damage');
-                        },2300);
-                        setTimeout(()=>{
-                            document.getElementById('hitPoint').innerHTML = `${braveHp}`;
-                        },3200);
+                        callback(messageClear123,0);
+                        message1('.message1',`<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`,300);
+                        message1('.message2',`<span class="message-text">りゅうおうのはんげき！ ジーズは${enemyAttack1}のダメージをうけた</span>`,2000);
+                        damageBgm('.game-window','damage',eaBgm,2100);
+                        classListRemove1('.game-window','damage',2300);
+                        message1('#hitPoint',`${braveHp}`,3200);
                         setTimeout(()=>{
                             enterKey = 0;
                         },5000);
@@ -399,18 +351,7 @@ function ryuouBattle(command_id){
 
 // りゅうおう（真）戦の戦闘関数
 function ryuouTrueBattle(command_id){
-    let audioElem2;
-    const aBgm = "https://orangedays00.github.io/gs_dev18_02/music/katana-slash5.mp3";
-    const caBgm = "https://orangedays00.github.io/gs_dev18_02/music/katana-slash2.mp3";
-    const eaBgm = "https://orangedays00.github.io/gs_dev18_02/music/punch-heavy1.mp3";
-
-    const playAttackBgm = (filename) => {
-        audioElem2 = new Audio();
-        audioElem2.src = filename;
-        audioElem2.play();
-    }
     if(enterKey == 1){
-        // document.getElementById("game-control").value = "コマンド番号:" + command_id;
         switch (command_id) {
             case 1: //たたかう
                 let braveHp = parseInt(document.getElementById('hitPoint').textContent);
@@ -421,65 +362,27 @@ function ryuouTrueBattle(command_id){
                 ];
                 const enemyId2 = Math.floor(Math.random() * janken.length);
                 const braveId2 = Math.floor(Math.random() * janken.length);
-                console.log(`りゅうおう：${enemyId2}`);
-                console.log(`ジーズ：${braveId2}`);
                 if(braveId2 == 0 && enemyId2 == 1 || braveId2 == 1 && enemyId2 == 2 || braveId2 == 2 && enemyId2 == 0){
                     if(braveId2 == 0){
 
                         const criticalAttack2 = Math.floor((Math.random() + 2) * 30);
                         enemyHp = enemyHp - criticalAttack2;
                         if(enemyHp < 0){
-                            setTimeout(()=>{
-                                messageClear123();
-                            },0);
-                            setTimeout(()=>{
-                                document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ かいしんのいちげき！りゅうおうに${criticalAttack2}のダメージ</span>`;
-                                messageClear23();
-                                console.log(enemyHp);
-                            },300);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuouTrue').classList.add('damage');
-                                playAttackBgm(caBgm);
-                            },400);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuouTrue').classList.remove('damage');
-                            },600);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuouTrue').classList.add('death');
-                            },700);
-                            setTimeout(()=>{
-                                document.querySelector('.message2').innerHTML = `<span class="dead-text">りゅうおうをたおした!</span>`;
-                                document.querySelector('.message3').innerHTML = "";
-                            },3000);
-                            setTimeout(()=>{
-                                document.querySelector('.ending').classList.remove('none');
-                                document.querySelector('.game-window').classList.add('none');
-                            },6000);
-                            setTimeout(()=>{
-                                document.querySelector('.ending-text1').innerHTML = `<span class="ending-text">まばゆい　ひかりが　あふれだす……</span>`;
-                            },7000);
-                            setTimeout(()=>{
-                                document.querySelector('.ending-text2').innerHTML = `<span class="ending-text">せかいに　へいわが　もどったのだ！</span>`;
-                            },12000);
-                            setTimeout(()=>{
-                                document.querySelector('.restart').classList.remove('none');
-                            },15000);
+                            callback(messageClear123,0);
+                            callbackMessage('.message1',`<span class="message-text">ジーズの こうげき！ かいしんのいちげき！りゅうおうに${criticalAttack2}のダメージ</span>`,messageClear23,300);
+                            damageBgm('.game-enemy img#ryuouTrue','damage',caBgm,400);
+                            classListRemove1('.game-enemy img#ryuouTrue','damage',600);
+                            classListAdd1('.game-enemy img#ryuouTrue','death',700);
+                            message12('.message2',`<span class="dead-text">りゅうおうをたおした!</span>`,'.message3',"",3000);
+                            classListAddRemove('.game-window','none','.ending','none',6000);
+                            message1('.ending-text1',`<span class="ending-text">まばゆい　ひかりが　あふれだす……</span>`,7000);
+                            message1('.ending-text2',`<span class="ending-text">せかいに　へいわが　もどったのだ！</span>`,12000);
+                            classListRemove1('.restart','none',15000);
                         }else{
-                            setTimeout(()=>{
-                                messageClear123();
-                            },0);
-                            setTimeout(()=>{
-                                document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ かいしんのいちげき！りゅうおうに${criticalAttack2}のダメージ</span>`;
-                                messageClear23();
-                                console.log(enemyHp);
-                            },300);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuouTrue').classList.add('damage');
-                                playAttackBgm(caBgm);
-                            },400);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuouTrue').classList.remove('damage');
-                            },600);
+                            callback(messageClear123,0);
+                            callbackMessage('.message1',`<span class="message-text">ジーズの こうげき！ かいしんのいちげき！りゅうおうに${criticalAttack2}のダメージ</span>`,messageClear23,300);
+                            damageBgm('.game-enemy img#ryuouTrue','damage',caBgm,400);
+                            classListRemove1('.game-enemy img#ryuouTrue','damage',600);
                             setTimeout(()=>{
                                 enterKey = 0;
                             },2000);
@@ -488,83 +391,36 @@ function ryuouTrueBattle(command_id){
                         const attack2 = Math.floor((Math.random() + 1) * 15);
                         enemyHp = enemyHp - attack2;
                         if(enemyHp < 0){
-                            setTimeout(()=>{
-                                messageClear123();
-                            },0);
-                            setTimeout(()=>{
-                                document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうに${attack2}のダメージ</span>`;
-                                messageClear23();
-                                console.log(enemyHp);
-                            },300);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuouTrue').classList.add('damage');
-                                playAttackBgm(aBgm);
-                            },400);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuouTrue').classList.remove('damage');
-                            },600);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuouTrue').classList.add('death');
-                            },700);
-                            setTimeout(()=>{
-                                document.querySelector('.message2').innerHTML = `<span class="dead-text">りゅうおうをたおした</span>`;
-                                document.querySelector('.message3').innerHTML = "";
-                            },3000);
-                            setTimeout(()=>{
-                                document.querySelector('.ending').classList.remove('none');
-                                document.querySelector('.game-window').classList.add('none');
-                            },6000);
-                            setTimeout(()=>{
-                                document.querySelector('.ending-text1').innerHTML = `<span class="ending-text">まばゆい　ひかりが　あふれだす……</span>`;
-                            },7000);
-                            setTimeout(()=>{
-                                document.querySelector('.ending-text2').innerHTML = `<span class="ending-text">せかいに　へいわが　もどったのだ！</span>`;
-                            },12000);
-                            setTimeout(()=>{
-                                document.querySelector('.restart').classList.remove('none');
-                            },15500);
+                            callback(messageClear123,0);
+                            callbackMessage('.message1',`<span class="message-text">ジーズの こうげき！ りゅうおうに${attack2}のダメージ</span>`,messageClear23,300);
+                            damageBgm('.game-enemy img#ryuouTrue','damage',aBgm,400);
+                            classListRemove1('.game-enemy img#ryuouTrue','damage',600);
+                            classListAdd1('.game-enemy img#ryuouTrue','death',700);
+                            message12('.message2',`<span class="dead-text">りゅうおうをたおした!</span>`,'.message3',"",3000);
+                            classListAddRemove('.game-window','none','.ending','none',6000);
+                            message1('.ending-text1',`<span class="ending-text">まばゆい　ひかりが　あふれだす……</span>`,7000);
+                            message1('.ending-text2',`<span class="ending-text">せかいに　へいわが　もどったのだ！</span>`,12000);
+                            classListRemove1('.restart','none',15500);
                         }else{
-                            setTimeout(()=>{
-                                messageClear123();
-                            },0);
-                            setTimeout(()=>{
-                                document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうに${attack2}のダメージ</span>`;
-                                messageClear23();
-                                console.log(enemyHp);
-                            },300);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuouTrue').classList.add('damage');
-                                playAttackBgm(aBgm);
-                            },400);
-                            setTimeout(()=>{
-                                document.querySelector('.game-enemy img#ryuouTrue').classList.remove('damage');
-                            },600);
+                            callback(messageClear123,0);
+                            callbackMessage('.message1',`<span class="message-text">ジーズの こうげき！ りゅうおうに${attack2}のダメージ</span>`,messageClear23,300);
+                            damageBgm('.game-enemy img#ryuouTrue','damage',aBgm,400);
+                            classListRemove1('.game-enemy img#ryuouTrue','damage',600);
                             setTimeout(()=>{
                                 enterKey = 0;
                             },2000);
                         }
                     }
                 }else if(braveId2 == 0 && enemyId2 == 0 || braveId2 == 1 && enemyId2 == 1 || braveId2 == 2 && enemyId2 == 2){
-                    setTimeout(()=>{
-                        messageClear123();
-                        },0);
-                    setTimeout(()=>{
-                        document.querySelector('.message1').innerHTML = '<span class="message-text">ジーズの こうげき！ ミス！</span>';
-                        messageClear23();
-                        },300);
+                    callback(messageClear123,0);
+                    callbackMessage('.message1','<span class="message-text">ジーズの こうげき！ ミス！</span>',messageClear23,300);
                     setTimeout(()=>{
                             enterKey = 0;
                         },2000);
                 }else if(braveId2 == 0 && enemyId2 == 2){
-                    setTimeout(()=>{
-                        messageClear123();
-                    },0);
-                    setTimeout(()=>{
-                        document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`;
-                    },300);
-                    setTimeout(()=>{
-                        document.querySelector('.message2').innerHTML = `<span class="message-text">りゅうおうのはんげき！ ジーズはひらりとみをかわした</span>`;
-                    },2000);
+                    callback(messageClear123,0);
+                    message1('.message1',`<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`,300);
+                    message1('.message2',`<span class="message-text">りゅうおうのはんげき！ ジーズはひらりとみをかわした</span>`,2000);
                     setTimeout(()=>{
                         enterKey = 0;
                     },4000);
@@ -572,81 +428,31 @@ function ryuouTrueBattle(command_id){
                     const enemyAttack2 = Math.floor(Math.random() * 15 + 15);
                     braveHp = braveHp - enemyAttack2;
                     if(braveHp < 0 ){
-                        setTimeout(()=>{
-                            messageClear123();
-                        },0);
-                        setTimeout(()=>{
-                            document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`;
-                        },300);
-                        setTimeout(()=>{
-                            document.querySelector('.message2').innerHTML = `<span class="message-text">りゅうおうのはんげき！ ジーズは${enemyAttack2}のダメージをうけた</span>`;
-                        },2000);
-                        setTimeout(()=>{
-                            document.querySelector('.game-window').classList.add('damage');
-                            playAttackBgm(eaBgm);
-                        },2100);
-                        setTimeout(()=>{
-                            document.querySelector('.game-window').classList.remove('damage');
-                        },2300);
-                        setTimeout(()=>{
-                            document.querySelector('.brave-profile').classList.add('dead');
-                            document.querySelector('.game-menu').classList.add('dead');
-                            document.getElementById('message').classList.add('dead');
-                            document.getElementById('hitPoint').innerHTML = "0";
-                        },3200);
-                        setTimeout(()=>{
-                            document.querySelector('.message3').innerHTML = `<span class="dead-text">ジーズはしんでしまった...</span>`;
-                        },5000);
-                        setTimeout(()=>{
-                            document.querySelector('.restart-go').classList.remove('none');
-                        },6500);
+                        callback(messageClear123,0);
+                        message1('.message1',`<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`,300);
+                        message1('.message2',`<span class="message-text">りゅうおうのはんげき！ ジーズは${enemyAttack2}のダメージをうけた</span>`,2000);
+                        damageBgm('.game-window','damage',eaBgm,2100);
+                        classListRemove1('.game-window','damage',2300);
+                        death('dead','.brave-profile','.game-menu','#message','#hitPoint',"0",3200);
+                        message1('.message3',`<span class="dead-text">ジーズはしんでしまった...</span>`,5000);
+                        classListRemove1('.restart-go','none',6500);
                     }else if(braveHp >= 1 && braveHp <= 30){
-                        setTimeout(()=>{
-                            messageClear123();
-                        },0);
-                        setTimeout(()=>{
-                            document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`;
-                        },300);
-                        setTimeout(()=>{
-                            document.querySelector('.message2').innerHTML = `<span class="message-text">りゅうおうのはんげき！ ジーズは${enemyAttack2}のダメージをうけた</span>`;
-                        },2000);
-                        setTimeout(()=>{
-                            document.querySelector('.game-window').classList.add('damage');
-                            playAttackBgm(eaBgm);
-                        },2100);
-                        setTimeout(()=>{
-                            document.querySelector('.game-window').classList.remove('damage');
-                        },2300);
-                        setTimeout(()=>{
-                            document.querySelector('.brave-profile').classList.add('pinch');
-                            document.querySelector('.game-menu').classList.add('pinch');
-                            document.getElementById('message').classList.add('pinch');
-                            document.getElementById('hitPoint').innerHTML = `${braveHp}`;
-                            document.querySelector('.message3').innerHTML = "";
-                        },3200);
+                        callback(messageClear123,0);
+                        message1('.message1',`<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`,300);
+                        message1('.message2',`<span class="message-text">りゅうおうのはんげき！ ジーズは${enemyAttack2}のダメージをうけた</span>`,2000);
+                        damageBgm('.game-window','damage',eaBgm,2100);
+                        classListRemove1('.game-window','damage',2300);
+                        pinch('pinch','.brave-profile','.game-menu','#message','#hitPoint','.message3',`${braveHp}`,"",3200);
                         setTimeout(()=>{
                             enterKey = 0;
                         },5000);
                     }else{
-                        setTimeout(()=>{
-                            messageClear123();
-                        },0);
-                        setTimeout(()=>{
-                            document.querySelector('.message1').innerHTML = `<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`;
-                        },300);
-                        setTimeout(()=>{
-                            document.querySelector('.message2').innerHTML = `<span class="message-text">りゅうおうのはんげき！ ジーズは${enemyAttack2}のダメージをうけた</span>`;
-                        },2000);
-                        setTimeout(()=>{
-                            document.querySelector('.game-window').classList.add('damage');
-                            playAttackBgm(eaBgm);
-                        },2100);
-                        setTimeout(()=>{
-                            document.querySelector('.game-window').classList.remove('damage');
-                        },2300);
-                        setTimeout(()=>{
-                            document.getElementById('hitPoint').innerHTML = `${braveHp}`;
-                        },3200);
+                        callback(messageClear123,0);
+                        message1('.message1',`<span class="message-text">ジーズの こうげき！ りゅうおうはかわした！</span>`,300);
+                        message1('.message2',`<span class="message-text">りゅうおうのはんげき！ ジーズは${enemyAttack2}のダメージをうけた</span>`,2000);
+                        damageBgm('.game-window','damage',eaBgm,2100);
+                        classListRemove1('.game-window','damage',2300);
+                        message1('#hitPoint',`${braveHp}`,3200);
                         setTimeout(()=>{
                             enterKey = 0;
                         },5000);
